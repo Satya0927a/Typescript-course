@@ -30,15 +30,16 @@ app.post('/exercises',(req,res)=>{
   if(!daily_exercises || !target){
     return res.status(400).send({
       error: "parameters missing"
-    })
+    });
   }
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const isNumberArray = (value: any):value is number[] =>{
-    return Array.isArray(value) && value.every(item => typeof item === "number")
-  }
+    return Array.isArray(value) && value.every(item => typeof item === "number");
+  };
   if(!isNumberArray(daily_exercises) || typeof target !== "number"){
     return res.status(400).send({
-      error: "malformatted parameters"
-    })
+      error: "malformatted parameters",
+    });
   }
   const result = calculateExercises(daily_exercises, target);
   return res.send(result);
